@@ -1,0 +1,49 @@
+{
+  "name": "@ricequant2026/rqdata-cli",
+  "version": "1.0.0",
+  "description": "RQData CLI for AI agents and quantitative research",
+  "license": "MIT",
+  "bin": {
+    "rqdata": "bin/rqdata.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/npm/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "optionalDependencies": {
+    "@ricequant2026/rqdata-cli-linux-x64": "1.0.0",
+    "@ricequant2026/rqdata-cli-darwin-x64": "1.0.0",
+    "@ricequant2026/rqdata-cli-darwin-arm64": "1.0.0",
+    "@ricequant2026/rqdata-cli-win32-x64": "1.0.0"
+  },
+  "scripts": {
+    "build:npm": "node scripts/npm/build-packages.js",
+    "link:platform": "node scripts/npm/link-platform-package.js",
+    "pack:all": "node scripts/npm/pack-all.js",
+    "publish:all": "node scripts/npm/publish-all.js",
+    "publish:next": "NPM_TAG=next node scripts/npm/publish-all.js",
+    "publish:dry-run": "NPM_TAG=next NPM_DRY_RUN=1 node scripts/npm/publish-all.js",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "keywords": [
+    "rqdata",
+    "cli",
+    "finance",
+    "quant",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ricequant/rqdata-cli.git"
+  },
+  "homepage": "https://github.com/ricequant/rqdata-cli",
+  "bugs": {
+    "url": "https://github.com/ricequant/rqdata-cli/issues"
+  }
+}

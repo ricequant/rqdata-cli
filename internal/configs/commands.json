@@ -1,0 +1,649 @@
+{
+  "groups": [
+    {
+      "name": "calendar",
+      "description": "交易日历",
+      "commands": [
+        {
+          "name": "trading-dates",
+          "description": "交易日列表",
+          "api_method": "get_trading_dates",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "prev",
+          "description": "上一个交易日",
+          "api_method": "get_previous_trading_date",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "next",
+          "description": "下一个交易日",
+          "api_method": "get_next_trading_date",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        }
+      ]
+    },
+    {
+      "name": "fund",
+      "description": "基金数据",
+      "commands": [
+        {
+          "name": "list",
+          "description": "基金列表",
+          "api_method": "fund.all_instruments",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "instruments",
+          "description": "基金基础信息",
+          "api_method": "fund.instruments",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "nav",
+          "description": "基金净值",
+          "api_method": "fund.get_nav",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": true
+        },
+        {
+          "name": "holdings",
+          "description": "基金持仓",
+          "api_method": "fund.get_holdings",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "indicators",
+          "description": "基金指标",
+          "api_method": "fund.get_indicators",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": true
+        },
+        {
+          "name": "manager",
+          "description": "基金经理",
+          "api_method": "fund.get_manager",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "dividend",
+          "description": "基金分红",
+          "api_method": "fund.get_dividend",
+          "validator": "fund_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        }
+      ]
+    },
+    {
+      "name": "futures",
+      "description": "期货数据",
+      "commands": [
+        {
+          "name": "list",
+          "description": "期货合约列表",
+          "api_method": "all_instruments",
+          "validator": null,
+          "inject_defaults": {"type": "Future"},
+          "api_supports_fields": false
+        },
+        {
+          "name": "instrument",
+          "description": "期货合约基本信息",
+          "api_method": "instruments",
+          "validator": "futures_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "price",
+          "description": "期货行情",
+          "api_method": "get_price",
+          "validator": "futures_code",
+          "inject_defaults": {
+            "frequency": "1d"
+          },
+          "api_supports_fields": true
+        },
+        {
+          "name": "dominant",
+          "description": "主力合约",
+          "api_method": "futures.get_dominant",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "dominant-price",
+          "description": "主力合约行情",
+          "api_method": "futures.get_dominant_price",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": true
+        }
+      ]
+    },
+    {
+      "name": "index",
+      "description": "指数数据",
+      "commands": [
+        {
+          "name": "instruments",
+          "description": "指数基础信息",
+          "api_method": "instruments",
+          "validator": "index_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "list",
+          "description": "指数列表",
+          "api_method": "all_instruments",
+          "validator": null,
+          "inject_defaults": {
+            "type": "INDX"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "price",
+          "description": "指数日行情",
+          "api_method": "get_price",
+          "validator": "index_code",
+          "inject_defaults": {
+            "frequency": "1d"
+          },
+          "api_supports_fields": true
+        },
+        {
+          "name": "constituents",
+          "description": "指数成分股",
+          "api_method": "index_components",
+          "validator": "index_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "weights",
+          "description": "成分股权重",
+          "api_method": "index_weights",
+          "validator": "index_code",
+          "inject_defaults": {},
+          "api_supports_fields": false
+        }
+      ]
+    },
+    {
+      "name": "macro",
+      "description": "宏观数据",
+      "commands": [
+        {
+          "name": "reserve-ratio",
+          "description": "存款准备金率",
+          "api_method": "econ.get_reserve_ratio",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "money-supply",
+          "description": "货币供应量",
+          "api_method": "econ.get_money_supply",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "price-cpi",
+          "description": "CPI居民消费价格指数",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn",
+            "factors": "居民消费价格指数CPI_当月同比(上年同月=100)"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "price-ppi",
+          "description": "PPI工业品出厂价格指数",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn",
+            "factors": "工业品出厂价格指数PPI_当月同比_(上年同月=100)"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "gdp",
+          "description": "GDP国内生产总值",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn",
+            "factors": "国内生产总值GDP_累计同比"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "pmi",
+          "description": "PMI制造业采购经理指数",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn",
+            "factors": "制造业采购经理指数PMI_当月"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "interest-rate",
+          "description": "Shibor利率",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn",
+            "factors": "银行间隔夜同业拆借加权平均利率:当期值:月"
+          },
+          "api_supports_fields": false
+        },
+        {
+          "name": "get",
+          "description": "宏观数据查询",
+          "api_method": "econ.get_factors",
+          "validator": null,
+          "inject_defaults": {
+            "market": "cn"
+          },
+          "api_supports_fields": false
+        }
+      ]
+    },
+    {
+      "name": "options",
+      "description": "期权数据",
+      "commands": [
+        {
+          "name": "list",
+          "description": "期权合约列表",
+          "api_method": "all_instruments",
+          "validator": null,
+          "inject_defaults": { "type": "Option"},
+          "api_supports_fields": false
+        },
+        {
+          "name": "instruments",
+          "description": "期权合约信息",
+          "api_method": "instruments",
+          "validator": null,
+          "inject_defaults": { },
+          "api_supports_fields": false
+        },
+        {
+          "name": "price",
+          "description": "期权行情",
+          "api_method": "get_price",
+          "validator": null,
+          "inject_defaults": {
+            "frequency": "1d"
+          },
+          "api_supports_fields": true
+        },
+        {
+          "name": "contracts",
+          "description": "期权合约列表",
+          "api_method": "options.get_contracts",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "greeks",
+          "description": "期权希腊字母",
+          "api_method": "options.get_greeks",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": true
+        },
+        {
+          "name": "indicators",
+          "description": "期权指标",
+          "api_method": "options.get_indicators",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": true
+        },
+        {
+          "name": "dominant-month",
+          "description": "期权主力月份",
+          "api_method": "options.get_dominant_month",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": false
+        },
+        {
+          "name": "contract-property",
+          "description": "期权合约属性",
+          "api_method": "options.get_contract_property",
+          "validator": null,
+          "inject_defaults": {},
+          "api_supports_fields": true
+        }
+      ]
+    },
+    {
+      "name": "stock",
+      "description": "股票数据",
+      "groups": [
+        {
+          "name": "cn",
+          "description": "A股数据",
+          "commands": [
+            {
+              "name": "list",
+              "description": "股票列表",
+              "api_method": "all_instruments",
+              "validator": null,
+              "inject_defaults": {
+                "type": "CS"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "instruments",
+              "description": "A股基础信息",
+              "api_method": "instruments",
+              "validator": "cn_stock_code",
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "price",
+              "description": "A股日行情",
+              "api_method": "get_price",
+              "validator": "cn_stock_code",
+              "inject_defaults": {
+                "frequency": "1d"
+              },
+              "api_supports_fields": true
+            },
+            {
+              "name": "dividend",
+              "description": "A股分红送股",
+              "api_method": "get_dividend",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "split",
+              "description": "A股拆股合股",
+              "api_method": "get_split",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "shares",
+              "description": "A股股本数据",
+              "api_method": "get_shares",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "ex-factor",
+              "description": "A股复权因子",
+              "api_method": "get_ex_factor",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "industry",
+              "description": "A股行业分类",
+              "api_method": "get_instrument_industry",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "turnover-rate",
+              "description": "A股换手率",
+              "api_method": "get_turnover_rate",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "margin",
+              "description": "A股融资融券",
+              "api_method": "get_margin_stocks",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "northbound",
+              "description": "北向资金持股",
+              "api_method": "get_stock_connect",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "financial",
+              "description": "A股财务数据（PIT）",
+              "api_method": "get_pit_financials_ex",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "financial-indicator",
+              "description": "A股财务指标",
+              "api_method": "get_factor",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "financial-express",
+              "description": "A股业绩快报",
+              "api_method": "current_performance",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "forecast",
+              "description": "A股业绩预告",
+              "api_method": "performance_forecast",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "consensus",
+              "description": "A股一致预期",
+              "api_method": "consensus.get_comp_indicators",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "research-reports",
+              "description": "获取研报",
+              "api_method": "consensus.get_indicator",
+              "validator": null,
+              "inject_defaults": {"fields": ["institute", "summary"]},
+              "api_supports_fields": false
+            },
+            {
+              "name": "shareholder-top10",
+              "description": "十大股东",
+              "api_method": "get_main_shareholder",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "shareholder-top10-free",
+              "description": "十大流通股东",
+              "api_method": "get_main_shareholder",
+              "validator": null,
+              "inject_defaults": {
+                "is_total": false
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "announcement",
+              "description": "公告信息",
+              "api_method": "get_announcement",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": true
+            },
+            {
+              "name": "suspended",
+              "description": "停牌信息",
+              "api_method": "is_suspended",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            },
+            {
+              "name": "st-status",
+              "description": "ST状态",
+              "api_method": "is_st_stock",
+              "validator": null,
+              "inject_defaults": {},
+              "api_supports_fields": false
+            }
+          ]
+        },
+        {
+          "name": "hk",
+          "description": "港股数据",
+          "commands": [
+            {
+              "name": "list",
+              "description": "港股列表",
+              "api_method": "all_instruments",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk",
+                "type": "CS"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "instruments",
+              "description": "港股基础信息",
+              "api_method": "instruments",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "price",
+              "description": "港股日行情",
+              "api_method": "get_price",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk",
+                "frequency": "1d"
+              },
+              "api_supports_fields": true
+            },
+            {
+              "name": "ex-factor",
+              "description": "港股复权因子",
+              "api_method": "get_ex_factor",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "shares",
+              "description": "港股股本数据",
+              "api_method": "get_shares",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": true
+            },
+            {
+              "name": "industry",
+              "description": "港股行业分类",
+              "api_method": "get_instrument_industry",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "turnover-rate",
+              "description": "港股换手率",
+              "api_method": "get_turnover_rate",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": true
+            },
+            {
+              "name": "dividend",
+              "description": "港股分红",
+              "api_method": "get_dividend",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": false
+            },
+            {
+              "name": "financial",
+              "description": "港股财务数据（PIT）",
+              "api_method": "get_pit_financials_ex",
+              "validator": null,
+              "inject_defaults": {
+                "market": "hk"
+              },
+              "api_supports_fields": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# Go build artifacts
+rqdata
+rqdata-*
+dist/
+*.exe
+*.tgz
+.cache/
+
+# Go modules
+go.sum
+
+# Token cache
+~/.rq/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Generated files
+schema.json
+node_modules/

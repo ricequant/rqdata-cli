@@ -1,0 +1,889 @@
+{
+  "suites": {
+    "index": [
+      {
+        "id": "idx-001",
+        "name": "单指数日线行情",
+        "priority": "P0",
+        "cmd": "index price",
+        "payload": {
+          "order_book_ids": ["000300.XSHG"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-05"
+        },
+        "python": "rqdatac.get_price('000300.XSHG', '2024-01-02', '2024-01-05')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "idx-002",
+        "name": "多指数日线行情",
+        "priority": "P0",
+        "cmd": "index price",
+        "payload": {
+          "order_book_ids": ["000300.XSHG", "000905.XSHG"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-05"
+        },
+        "python": "rqdatac.get_price(['000300.XSHG', '000905.XSHG'], '2024-01-02', '2024-01-05')",
+        "validate": {"min_rows": 2}
+      },
+      {
+        "id": "idx-003",
+        "name": "指数基础信息",
+        "priority": "P1",
+        "cmd": "index instruments",
+        "payload": {
+          "order_book_ids": ["000300.XSHG"]
+        },
+        "python": "rqdatac.instruments('000300.XSHG')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "idx-004",
+        "name": "指数成分股",
+        "priority": "P0",
+        "cmd": "index constituents",
+        "payload": {
+          "order_book_id": "000300.XSHG",
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.index_components('000300.XSHG', '2024-01-31')",
+        "validate": {"min_rows": 100}
+      },
+      {
+        "id": "idx-005",
+        "name": "指数成分股权重",
+        "priority": "P1",
+        "cmd": "index weights",
+        "payload": {
+          "order_book_id": "000852.XSHG",
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.index_weights('000852.XSHG', '2024-01-31')",
+        "validate": {"min_rows": 50}
+      },
+      {
+        "id": "idx-006",
+        "name": "指数列表",
+        "priority": "P1",
+        "cmd": "index list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.all_instruments(type='INDX', date='2024-01-31')",
+        "validate": {"min_rows": 100}
+      }
+    ],
+    "stock_cn": [
+      {
+        "id": "stock-cn-001",
+        "name": "单股票前复权日线",
+        "priority": "P0",
+        "cmd": "stock cn price",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31",
+          "adjust_type": "pre"
+        },
+        "python": "rqdatac.get_price('000001.XSHE', '2024-01-02', '2024-01-31', adjust_type='pre')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "stock-cn-002",
+        "name": "多股票不复权",
+        "priority": "P0",
+        "cmd": "stock cn price",
+        "payload": {
+          "order_book_ids": ["000001.XSHE", "600519.XSHG"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.get_price(['000001.XSHE', '600519.XSHG'], '2024-01-02', '2024-01-10')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "stock-cn-003",
+        "name": "股票基础信息",
+        "priority": "P1",
+        "cmd": "stock cn instruments",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"]
+        },
+        "python": "rqdatac.instruments('000001.XSHE')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-004",
+        "name": "股票分红数据",
+        "priority": "P1",
+        "cmd": "stock cn dividend",
+        "payload": {
+          "order_book_ids": ["600519.XSHG"],
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_dividend('600519.XSHG', '2020-01-01', '2024-12-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-005",
+        "name": "股票股本数据",
+        "priority": "P1",
+        "cmd": "stock cn shares",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_shares('000001.XSHE', '2024-01-01', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-006",
+        "name": "股票复权因子",
+        "priority": "P1",
+        "cmd": "stock cn ex-factor",
+        "payload": {
+          "order_book_ids": ["600519.XSHG"],
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_ex_factor('600519.XSHG', '2020-01-01', '2024-12-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-007",
+        "name": "股票行业分类",
+        "priority": "P1",
+        "cmd": "stock cn industry",
+        "payload": {
+          "order_book_ids": ["000001.XSHE", "600519.XSHG"]
+        },
+        "python": "rqdatac.get_instrument_industry(['000001.XSHE', '600519.XSHG'])",
+        "validate": {"min_rows": 2}
+      },
+      {
+        "id": "stock-cn-008",
+        "name": "股票换手率",
+        "priority": "P2",
+        "cmd": "stock cn turnover-rate",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.get_turnover_rate('000001.XSHE', '2024-01-02', '2024-01-10')",
+        "validate": {"min_rows": 5}
+      },
+      {
+        "id": "stock-cn-009",
+        "name": "北向资金持股",
+        "priority": "P2",
+        "cmd": "stock cn northbound",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_stock_connect('000001.XSHE', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-010",
+        "name": "停牌状态查询",
+        "priority": "P2",
+        "cmd": "stock cn suspended",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.is_suspended(['000001.XSHE'], '2024-01-02', '2024-01-10')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-011",
+        "name": "ST状态查询",
+        "priority": "P2",
+        "cmd": "stock cn st-status",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.is_st_stock(['000001.XSHE'], '2024-01-02', '2024-01-10')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-012",
+        "name": "财务数据查询",
+        "priority": "P1",
+        "cmd": "stock cn financial",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_quarter": "2023Q1",
+          "end_quarter": "2024Q4",
+          "fields": ["revenue", "net_profit"]
+        },
+        "python": "rqdatac.get_pit_financials_ex(['000001.XSHE'], start_quarter='2023Q1', end_quarter='2024Q4', fields=['revenue', 'net_profit'])",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-013",
+        "name": "拆股合股数据",
+        "priority": "P2",
+        "cmd": "stock cn split",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2000-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_split('000001.XSHE', start_date='2000-01-01', end_date='2024-12-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-014",
+        "name": "A股列表",
+        "priority": "P1",
+        "cmd": "stock cn list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.all_instruments(type='CS', date='2024-01-31')",
+        "validate": {"min_rows": 4000}
+      },
+      {
+        "id": "stock-cn-015",
+        "name": "融资融券数据",
+        "priority": "P2",
+        "cmd": "stock cn margin",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.get_margin_stocks(date='2024-01-31')",
+        "validate": {"min_rows": 100}
+      },
+      {
+        "id": "stock-cn-016",
+        "name": "财务指标数据",
+        "priority": "P1",
+        "cmd": "stock cn financial-indicator",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31",
+          "factor": ["roe", "roa"]
+        },
+        "python": "rqdatac.get_factor(['000001.XSHE'], factor=['roe', 'roa'], start_date='2023-01-01', end_date='2024-12-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-017",
+        "name": "业绩快报",
+        "priority": "P2",
+        "cmd": "stock cn financial-express",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"]
+        },
+        "python": "rqdatac.current_performance(['000001.XSHE'])",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-018",
+        "name": "业绩预告",
+        "priority": "P2",
+        "cmd": "stock cn forecast",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"]
+        },
+        "python": "rqdatac.performance_forecast(['000001.XSHE'])",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-019",
+        "name": "一致预期数据",
+        "priority": "P2",
+        "cmd": "stock cn consensus",
+        "payload": {
+          "order_book_ids": ["600519.XSHG"],
+          "start_date": "2025-01-01",
+          "end_date": "2025-02-01"
+        },
+        "python": "rqdatac.consensus.get_comp_indicators(['600519.XSHG'], '2025-01-01', '2025-02-01')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-020",
+        "name": "十大股东",
+        "priority": "P2",
+        "cmd": "stock cn shareholder-top10",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"]
+        },
+        "python": "rqdatac.get_main_shareholder(['000001.XSHE'])",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-021",
+        "name": "十大流通股东",
+        "priority": "P2",
+        "cmd": "stock cn shareholder-top10-free",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"]
+        },
+        "python": "rqdatac.get_main_shareholder(['000001.XSHE'], is_total=False)",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-cn-022",
+        "name": "公告查询",
+        "priority": "P2",
+        "cmd": "stock cn announcement",
+        "payload": {
+          "order_book_ids": ["000001.XSHE"],
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_announcement(['000001.XSHE'], '2020-01-01', '2024-12-31')",
+        "validate": {"min_rows": 100}
+      }
+    ],
+    "stock_hk": [
+      {
+        "id": "stock-hk-001",
+        "name": "港股日线行情",
+        "priority": "P2",
+        "cmd": "stock hk price",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_price('00700.XHKG', '2024-01-02', '2024-01-31', market='hk')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "stock-hk-002",
+        "name": "港股基础信息",
+        "priority": "P1",
+        "cmd": "stock hk instruments",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"]
+        },
+        "python": "rqdatac.instruments('00700.XHKG')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-hk-003",
+        "name": "港股分红数据",
+        "priority": "P2",
+        "cmd": "stock hk dividend",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_dividend('00700.XHKG', '2020-01-01', '2024-12-31', market='hk')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-hk-004",
+        "name": "港股换手率",
+        "priority": "P2",
+        "cmd": "stock hk turnover-rate",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.get_turnover_rate('00700.XHKG', '2024-01-02', '2024-01-10', market='hk')",
+        "validate": {"min_rows": 5}
+      },
+      {
+        "id": "stock-hk-005",
+        "name": "港股股本数据",
+        "priority": "P2",
+        "cmd": "stock hk shares",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_shares('00700.XHKG', '2024-01-01', '2024-01-31', market='hk')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-hk-006",
+        "name": "港股复权因子",
+        "priority": "P2",
+        "cmd": "stock hk ex-factor",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_ex_factor('00700.XHKG', '2020-01-01', '2024-12-31', market='hk')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-hk-007",
+        "name": "港股列表",
+        "priority": "P2",
+        "cmd": "stock hk list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.all_instruments(type='CS', market='hk', date='2024-01-31')",
+        "validate": {"min_rows": 1000}
+      },
+      {
+        "id": "stock-hk-008",
+        "name": "港股行业分类",
+        "priority": "P2",
+        "cmd": "stock hk industry",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"]
+        },
+        "python": "rqdatac.get_instrument_industry(['00700.XHKG'], market='hk')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "stock-hk-009",
+        "name": "港股财务数据",
+        "priority": "P2",
+        "cmd": "stock hk financial",
+        "payload": {
+          "order_book_ids": ["00700.XHKG"],
+          "start_quarter": "2023Q1",
+          "end_quarter": "2024Q4",
+          "fields": ["revenue", "net_profit"]
+        },
+        "python": "rqdatac.get_pit_financials_ex(['00700.XHKG'], start_quarter='2023Q1', end_quarter='2024Q4', fields=['revenue', 'net_profit'], market='hk')",
+        "validate": {"min_rows": 1}
+      }
+    ],
+    "calendar": [
+      {
+        "id": "cal-001",
+        "name": "查询交易日列表",
+        "priority": "P0",
+        "cmd": "calendar trading-dates",
+        "payload": {
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_trading_dates('2024-01-01', '2024-01-31')",
+        "validate": {"min_rows": 15}
+      },
+      {
+        "id": "cal-002",
+        "name": "查询上一交易日",
+        "priority": "P0",
+        "cmd": "calendar prev",
+        "payload": {
+          "date": "2024-01-05"
+        },
+        "python": "rqdatac.get_previous_trading_date('2024-01-05')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "cal-003",
+        "name": "查询下一交易日",
+        "priority": "P0",
+        "cmd": "calendar next",
+        "payload": {
+          "date": "2024-01-05"
+        },
+        "python": "rqdatac.get_next_trading_date('2024-01-05')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "cal-004",
+        "name": "全年交易日查询",
+        "priority": "P1",
+        "cmd": "calendar trading-dates",
+        "payload": {
+          "start_date": "2024-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.get_trading_dates('2024-01-01', '2024-12-31')",
+        "validate": {"min_rows": 200}
+      }
+    ],
+    "futures": [
+      {
+        "id": "fut-001",
+        "name": "期货合约信息",
+        "priority": "P1",
+        "cmd": "futures instrument",
+        "payload": {
+          "order_book_ids": ["IF2406"]
+        },
+        "python": "rqdatac.instruments('IF2406')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "fut-002",
+        "name": "期货日线行情",
+        "priority": "P0",
+        "cmd": "futures price",
+        "payload": {
+          "order_book_ids": ["IF2406"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_price('IF2406', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fut-003",
+        "name": "多期货合约行情",
+        "priority": "P1",
+        "cmd": "futures price",
+        "payload": {
+          "order_book_ids": ["IF2406", "RB2405"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-10"
+        },
+        "python": "rqdatac.get_price(['IF2406', 'RB2405'], '2024-01-02', '2024-01-10')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fut-004",
+        "name": "查询主力合约",
+        "priority": "P0",
+        "cmd": "futures dominant",
+        "payload": {
+          "underlying_symbol": "IF",
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.futures.get_dominant('IF', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "fut-005",
+        "name": "主力连续行情",
+        "priority": "P0",
+        "cmd": "futures dominant-price",
+        "payload": {
+          "underlying_symbols": ["RB"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.futures.get_dominant_price('RB', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fut-006",
+        "name": "期货合约列表",
+        "priority": "P1",
+        "cmd": "futures list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.all_instruments(type='Future', date='2024-01-31')",
+        "validate": {"min_rows": 1000}
+      }
+    ],
+    "fund": [
+      {
+        "id": "fund-001",
+        "name": "基金基础信息",
+        "priority": "P1",
+        "cmd": "fund instruments",
+        "payload": {
+          "order_book_ids": ["510300"]
+        },
+        "python": "rqdatac.fund.instruments('510300')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "fund-002",
+        "name": "基金净值查询",
+        "priority": "P0",
+        "cmd": "fund nav",
+        "payload": {
+          "order_book_ids": ["510300"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.fund.get_nav('510300', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fund-003",
+        "name": "ETF净值查询",
+        "priority": "P1",
+        "cmd": "fund nav",
+        "payload": {
+          "order_book_ids": ["510300"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.fund.get_nav('510300', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fund-004",
+        "name": "基金持仓查询",
+        "priority": "P2",
+        "cmd": "fund holdings",
+        "payload": {
+          "order_book_ids": ["510300"],
+          "date": "2023-12-31"
+        },
+        "python": "rqdatac.fund.get_holdings('510300', '2023-12-31')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "fund-005",
+        "name": "基金指标查询",
+        "priority": "P2",
+        "cmd": "fund indicators",
+        "payload": {
+          "order_book_ids": ["510300"],
+          "start_date": "2024-01-01",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.fund.get_indicators('510300', '2024-01-01', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "fund-006",
+        "name": "基金分红查询",
+        "priority": "P2",
+        "cmd": "fund dividend",
+        "payload": {
+          "order_book_ids": ["510300"]
+        },
+        "python": "rqdatac.fund.get_dividend('510300')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "fund-007",
+        "name": "基金列表",
+        "priority": "P1",
+        "cmd": "fund list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.fund.all_instruments(date='2024-01-31')",
+        "validate": {"min_rows": 5000}
+      },
+      {
+        "id": "fund-008",
+        "name": "基金经理信息",
+        "priority": "P2",
+        "cmd": "fund manager",
+        "payload": {
+          "order_book_ids": ["510300"]
+        },
+        "python": "rqdatac.fund.get_manager('510300')",
+        "validate": {"min_rows": 1}
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-001",
+        "name": "期权合约列表",
+        "priority": "P2",
+        "cmd": "options contracts",
+        "payload": {
+          "underlying": "510300.XSHG",
+          "trading_date": "2024-01-31",
+          "option_type": "C"
+        },
+        "python": "rqdatac.options.get_contracts('510300.XSHG', trading_date='2024-01-31', option_type='C')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "opt-002",
+        "name": "期权行情查询",
+        "priority": "P2",
+        "cmd": "options price",
+        "payload": {
+          "order_book_ids": ["10005783"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.get_price('10005783', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "opt-003",
+        "name": "期权希腊字母",
+        "priority": "P2",
+        "cmd": "options greeks",
+        "payload": {
+          "order_book_ids": ["10005783"],
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.options.get_greeks(['10005783'], '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "opt-004",
+        "name": "期权合约列表查询",
+        "priority": "P2",
+        "cmd": "options list",
+        "payload": {
+          "date": "2024-01-31"
+        },
+        "python": "rqdatac.all_instruments(type='Option', date='2024-01-31')",
+        "validate": {"min_rows": 100}
+      },
+      {
+        "id": "opt-005",
+        "name": "期权合约信息",
+        "priority": "P2",
+        "cmd": "options instruments",
+        "payload": {
+          "order_book_ids": ["10005783"]
+        },
+        "python": "rqdatac.instruments('10005783')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "opt-006",
+        "name": "期权指标数据",
+        "priority": "P2",
+        "cmd": "options indicators",
+        "payload": {
+          "underlying_symbols": ["CU"],
+          "maturity": "2401",
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.options.get_indicators('CU', '2401', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "opt-007",
+        "name": "期权主力月份",
+        "priority": "P2",
+        "cmd": "options dominant-month",
+        "payload": {
+          "underlying_symbol": "CU",
+          "start_date": "2024-01-02",
+          "end_date": "2024-01-31"
+        },
+        "python": "rqdatac.options.get_dominant_month('CU', '2024-01-02', '2024-01-31')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "opt-008",
+        "name": "期权合约属性",
+        "priority": "P2",
+        "cmd": "options contract-property",
+        "payload": {
+          "order_book_ids": ["10005783"]
+        },
+        "python": "rqdatac.options.get_contract_property(['10005783'])",
+        "validate": {"min_rows": 1}
+      }
+    ],
+    "macro": [
+      {
+        "id": "macro-001",
+        "name": "存款准备金率",
+        "priority": "P2",
+        "cmd": "macro reserve-ratio",
+        "payload": {
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31",
+          "reserve_type": "major"
+        },
+        "python": "rqdatac.econ.get_reserve_ratio(start_date='2020-01-01', end_date='2024-12-31', market='cn', reserve_type='major')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "macro-002",
+        "name": "货币供应量",
+        "priority": "P2",
+        "cmd": "macro money-supply",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_money_supply('2023-01-01', '2024-12-31', market='cn')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "macro-003",
+        "name": "CPI居民消费价格指数",
+        "priority": "P2",
+        "cmd": "macro price-cpi",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2023-01-01', end_date='2024-12-31', market='cn', factors='居民消费价格指数CPI_当月同比(上年同月=100)')",
+        "validate": {"min_rows": 10}
+      },
+      {
+        "id": "macro-004",
+        "name": "GDP国内生产总值",
+        "priority": "P2",
+        "cmd": "macro gdp",
+        "payload": {
+          "start_date": "2020-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2020-01-01', end_date='2024-12-31', market='cn', factors='国内生产总值GDP_累计同比')",
+        "validate": {"min_rows": 5}
+      },
+      {
+        "id": "macro-005",
+        "name": "PPI生产者价格指数",
+        "priority": "P2",
+        "cmd": "macro price-ppi",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2023-01-01', end_date='2024-12-31', market='cn', factors='工业品出厂价格指数PPI_当月同比_(上年同月=100)')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "macro-006",
+        "name": "PMI采购经理指数",
+        "priority": "P2",
+        "cmd": "macro pmi",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2023-01-01', end_date='2024-12-31', market='cn', factors='制造业采购经理指数PMI_当月')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "macro-007",
+        "name": "利率数据",
+        "priority": "P2",
+        "cmd": "macro interest-rate",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2023-01-01', end_date='2024-12-31', market='cn', factors='银行间隔夜同业拆借加权平均利率:当期值:月')",
+        "validate": {"min_rows": 1}
+      },
+      {
+        "id": "macro-008",
+        "name": "通用宏观数据查询",
+        "priority": "P2",
+        "cmd": "macro get",
+        "payload": {
+          "start_date": "2023-01-01",
+          "end_date": "2024-12-31",
+          "factors": "社会消费品零售总额_当月同比"
+        },
+        "python": "rqdatac.econ.get_factors(start_date='2023-01-01', end_date='2024-12-31', market='cn', factors='社会消费品零售总额_当月同比')",
+        "validate": {"min_rows": 10}
+      }
+    ]
+  }
+}
