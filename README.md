@@ -1,6 +1,6 @@
 # RQData CLI
 
-> 面向量化研究与 AI Agent 的 RQData 命令行工具
+> 面向投资研究与 AI Agent 的 RQData 命令行工具
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.21%2B-blue.svg)](https://golang.org)
