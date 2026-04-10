@@ -126,15 +126,32 @@ func deleteFromFile() error {
 }
 
 func promptCredentials() (string, string, error) {
-	reader := bufio.NewReader(os.Stdin)
+	input := os.Stdin
+	shouldClose := false
 
-	fmt.Print("Username: ")
-	username, _ := reader.ReadString('\n')
-	username = strings.TrimSpace(username)
+	// When stdin is redirected, read from the controlling terminal instead so
+	// interactive login still blocks for user input.
+	if stat, err := os.Stdin.Stat(); err == nil && (stat.Mode()&os.ModeCharDevice) == 0 {
+		tty, err := os.Open("/dev/tty")
+		if err != nil {
+				return "", "", fmt.Errorf("无法读取交互式输入: stdin 不是终端，且打开 /dev/tty 失败: %w", err)
+		}
+		input = tty
+		shouldClose = true
+	}
+	if shouldClose {
+		defer input.Close()
+	}
 
-	fmt.Print("Password: ")
-	passwordBytes, _ := term.ReadPassword(int(syscall.Stdin))
-	fmt.Println()
+	reader := bufio.NewReader(input)
 
-	return username, string(passwordBytes), nil
+	fmt.Fprint(os.Stderr, "license: ")
+	license, err := reader.ReadString('\n')
+	if err != nil {
+		return "", "", fmt.Errorf("读取 license 失败: %w", err)
+	}
+	license = strings.TrimSpace(license)
+	fmt.Fprintln(os.Stderr)
+
+	return "license", license, nil
 }
