@@ -6,11 +6,6 @@ dist/
 *.tgz
 .cache/
 
-# Go modules
-go.sum
-
-# Token cache
-~/.rq/
 
 # IDE
 .vscode/
