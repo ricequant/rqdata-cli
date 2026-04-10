@@ -8,10 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"syscall"
 
 	"github.com/zalando/go-keyring"
-	"golang.org/x/term"
 )
 
 type credentialsFile struct {
