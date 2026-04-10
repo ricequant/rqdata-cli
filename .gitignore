@@ -27,5 +27,4 @@ __pycache__/
 *.pyc
 
 # Generated files
-schema.json
 node_modules/

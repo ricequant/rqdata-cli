@@ -1,0 +1,1369 @@
+{
+  "get_trading_dates": {
+    "parameters": {
+      "start_date": {
+        "type": "string",
+        "required": true,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": true,
+        "description": "结束日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_previous_trading_date": {
+    "parameters": {
+      "date": {
+        "type": "string",
+        "required": true,
+        "description": "指定日期"
+      },
+      "n": {
+        "type": "integer",
+        "required": false,
+        "description": "n 代表往前第 n 个交易日。默认为 1，即前一个交易日",
+        "default": "1"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_next_trading_date": {
+    "parameters": {
+      "date": {
+        "type": "string",
+        "required": true,
+        "description": "指定日期"
+      },
+      "n": {
+        "type": "integer",
+        "required": false,
+        "description": "n 代表未来第 n 个交易日。默认为 1，即下一个交易日",
+        "default": "1"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.all_instruments": {
+    "parameters": {
+      "date": {
+        "type": "date",
+        "required": false,
+        "description": "该参数表示过滤掉 listed_date 晚于当日的基金，默认为 None，表示获取全部基金信息，不进行过滤。 (Default value = None)"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.instruments": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.get_nav": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "start_date": {
+        "type": "date",
+        "required": false,
+        "description": "开始日期 (Default value = None)"
+      },
+      "end_date": {
+        "type": "date",
+        "required": false,
+        "description": "结束日期 (Default value = None)"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "str or list of str，例如：'acc_net_value', 'unit_net_value', 'subscribe_status', 'redeem_status', 'change_rate' (Default value = None)"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "返回 MultiIndex DataFrame (Default value = False)",
+        "default": "False"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.get_holdings": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "date": {
+        "type": "date",
+        "required": false,
+        "description": "日期，为空则返回所有持仓 (Default value = None)"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.get_indicators": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "start_date": {
+        "type": "date",
+        "required": false,
+        "description": "开始日期 (Default value = None)"
+      },
+      "end_date": {
+        "type": "date",
+        "required": false,
+        "description": "结束日期 (Default value = None)"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "str or list of str (Default value = None)"
+      },
+      "rule": {
+        "type": "integer",
+        "required": false,
+        "description": "str, 可选：[\"ricequant\"] (Default value = \"ricequant\")",
+        "default": "ricequant"
+      },
+      "indicator_type": {
+        "type": "any",
+        "required": false,
+        "description": "str, 可选：[\"value\", \"rank\"] (Default value = \"value\")",
+        "default": "value"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.get_manager": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "返回 MultiIndex DataFrame (Default value = True)",
+        "default": "True"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "fund.get_dividend": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "基金代码，str 或 list of str"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "all_instruments": {
+    "parameters": {
+      "type": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "需要查询合约类型，例如：type='CS'代表股票。默认是所有类型 - 'CS' : Common Stock, 即股票 - 'ETF' : Exchange Traded Fund, 即交易所交易基金 - 'LOF' : Listed Open-Ended Fund，即上市型开放式基金 （以下分级基金已并入） - 'INDX' : Index, 即指数 - 'Future' : Futures，即期货，包含股指、国债和商品期货 - 'Spot' : Spot，即现货，目前包括上海黄金交易所现货合约 - 'Option' : 期权，包括目前国内已上市的全部期权合约 - 'Convertible' : 沪深两市场内有交易的可转债合约 - 'Repo' : 沪深两市交易所交易的回购合约 - 'REITs' : 不动产投资信托基金 - 'FUND' : 包括ETF, LOF, REITs后的其他基金"
+      },
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "指定日期，筛选指定日期可交易的合约"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "instruments": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list。 中国市场的 order_book_id 通常类似'000001.XSHE'。需要注意，国内股票、ETF、指数合约代码分别应当以'.XSHG'或'.XSHE'结尾，前者代表上证，后者代表深证。 比如查询平安银行这个股票合约，则键入'000001.XSHE'，前面的数字部分为交易所内这个股票的合约代码，后半部分为对应的交易所代码。 期货则无此要求"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_price": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期"
+      },
+      "frequency": {
+        "type": "string",
+        "required": false,
+        "description": "历史数据的频率。 现在支持周/日/分钟/tick 级别的历史数据，默认为'1d'。 1m - 分钟线 1d - 日线 1w - 周线，只支持'1w' 日线和分钟可选取不同频率，例如'5m'代表 5 分钟线。",
+        "default": "1d"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "字段名称"
+      },
+      "adjust_type": {
+        "type": "string",
+        "required": false,
+        "description": "权息修复方案，仅对股票和 ETF 有效，默认为'pre'。 不复权 - 'none'， 前复权 - 'pre'，后复权 - 'post'， 前复权 - 'pre_volume', 后复权 - 'post_volume' 两组前后复权方式仅 volume 字段处理不同，其他字段相同。其中'pre'、'post'中的 volume 采用拆分因子调整；'pre_volume'、'post_volume'中的 volume 采用复权因子调整。",
+        "default": "pre"
+      },
+      "skip_suspended": {
+        "type": "boolean",
+        "required": false,
+        "description": "是否跳过停牌数据。默认为 False，不跳过，用停牌前数据进行补齐。True 则为跳过停牌期。",
+        "default": "False"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe。如果调为 False，则返回原有的数据结构,周线数据需设置 expect_df=True",
+        "default": "True"
+      },
+      "time_slice": {
+        "type": "string",
+        "required": false,
+        "description": "开始、结束时间段。默认返回当天所有数据。 支持分钟 / tick 级别的切分，详见下方范例。"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "futures.get_dominant": {
+    "parameters": {
+      "underlying_symbol": {
+        "type": "string",
+        "required": true,
+        "description": "期货合约品种，例如沪深 300 股指期货为'IF'"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为期货品种最早上市日期后一交易日"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为当前日期"
+      },
+      "rule": {
+        "type": "integer",
+        "required": false,
+        "description": "主力合约选取规则。 默认 rule=0，当同品种其他合约持仓量在收盘后超过当前主力合约 1.1 倍时，从第二个交易日开始进行主力合约的切换。每个合约只能做一次主力/次主力合约，不会重复出现。针对股指期货，只在当月和次月选择主力合约。 当 rule=1 时，主力/次主力合约的选取只考虑最大/第二大昨仓这个条件。 当 rule=2 时，采用昨日成交量与持仓量同为最大/第二大的合约为当日主力/次主力。 当 rule=3 时，在 rule=0 选取规则上，考虑在最后一个交易日不能成为主力/次主力合约。",
+        "default": "0"
+      },
+      "rank": {
+        "type": "integer",
+        "required": false,
+        "description": "默认 rank=1。 1-主力合约（支持所有期货） 2-次主力合约（支持所有期货；针对股指期货，需满足 **rule=1** 或 **rule=2**） 3-次次主力合约（支持所有期货；针对股指期货，需满足 **rule=1** 或 **rule=2**）",
+        "default": "1"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "futures.get_dominant_price": {
+    "parameters": {
+      "underlying_symbols": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "期货合约品种，可传入 underlying_symbol, underlying_symbol list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，start_date ,end_date 不传参数时默认返回最近三个月的数据"
+      },
+      "frequency": {
+        "type": "string",
+        "required": false,
+        "description": "历史数据的频率。 支持/日/分钟/tick 级别的历史数据，默认为'1d'。1m- 分钟线，1d-日线，分钟可选取不同频率，例如'5m'代表 5 分钟线",
+        "default": "1d"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段"
+      },
+      "adjust_type": {
+        "type": "string",
+        "required": false,
+        "description": "复权方式，默认为'pre'， none - 不复权 ，pre - 前复权， post - 后复权，",
+        "default": "pre"
+      },
+      "adjust_method": {
+        "type": "string",
+        "required": false,
+        "description": "复权方法 'prev_close_spread'：基于主力合约切换前一个交易日收盘价价差进行复权 'open_spread'：基于主力合约切换当日开盘价价差进行复权 'prev_close_ratio'：基于主力合约切换前一个交易日收盘价比例进行复权 'open_ratio'：基于主力合约切换当日开盘价比例进行复权' 默认为'prev_close_spread'; adjust_type 为 None 时，adjust_method 复权方法设置无效",
+        "default": "prev_close_spread"
+      },
+      "rule": {
+        "type": "integer",
+        "required": false,
+        "description": "主力合约选取规则。 默认 rule=0，当同品种其他合约持仓量在收盘后超过当前主力合约 1.1 倍时，从第二个交易日开始进行主力合约的切换。每个合约只能做一次主力/次主力合约，不会重复出现。针对股指期货，只在当月和次月选择主力合约。 当 rule=1 时，主力/次主力合约的选取只考虑最大/第二大昨仓这个条件。 当 rule=2 时，采用昨日成交量与持仓量同为最大/第二大的合约为当日主力/次主力。 当 rule=3 时，在 rule=0 选取规则上，考虑在最后一个交易日不能成为主力/次主力合约。",
+        "default": "0"
+      },
+      "rank": {
+        "type": "integer",
+        "required": false,
+        "description": "默认 rank=1 1-主力合约（支持所有期货） 2-次主力合约（支持所有期货；针对股指期货，需满足 **rule=1** 或 **rule=2**） 3-次次主力合约（支持所有期货；针对股指期货，需满足 **rule=1** 或 **rule=2**）",
+        "default": "1"
+      },
+      "time_slice": {
+        "type": "string",
+        "required": false,
+        "description": "开始、结束时间段。默认返回当天所有数据。"
+      }
+    },
+    "returns": {}
+  },
+  "index_components": {
+    "parameters": {
+      "order_book_id": {
+        "type": "string",
+        "required": true,
+        "description": "指数代码，传入 order_book_id，例如'000001.XSHG'"
+      },
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期，默认为当天"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "指定开始日期，不能和 date 同时指定"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "指定结束日期, 需和 start_date 同时指定并且应当不小于开始日期"
+      },
+      "return_create_tm": {
+        "type": "boolean",
+        "required": false,
+        "description": "设置为 True 的时候，传入 date, 返回 tuple, 第一个元素是列表, 第二个元素是入库时间 ; 传入 start_date, end_date, 返回 dict, 其中 key 是日期, value 是 tuple, 其中第一个元素是列表, 第二个元素是入库时间",
+        "default": "False"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国市场('cn')，目前仅支持中国市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "index_weights": {
+    "parameters": {
+      "order_book_id": {
+        "type": "string",
+        "required": true,
+        "description": "指数代码，可传入 order_book_id，例如'000001.XSHG'或'沪深 300'。目前所支持的指数列表可以参考指数数据表"
+      },
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期，默认为当天"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "指定开始日期，不能和 date 同时指定"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "指定结束日期, 需和 start_date 同时指定并且应当不小于开始日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "地区代码, 如 'cn'",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "econ.get_reserve_ratio": {
+    "parameters": {
+      "reserve_type": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "存款准备金详细类别，默认为 'all'，目前支持 'all', 'major', 'other'",
+        "default": "all"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始查找时间，如 '20180501'，默认为上一年的当天"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "截止查找时间，如 '20180501'，默认为当天"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "econ.get_money_supply": {
+    "parameters": {
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为去年的查询当日（基准为信息公布日）。"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为查询当日。"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "econ.get_factors": {
+    "parameters": {
+      "factors": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "宏观因子名称，<https://assets.ricequant.com/vendor/rqdata/econ_get_factors.xlsx>（见文档）"
+      },
+      "start_date": {
+        "type": "string",
+        "required": true,
+        "description": "起始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": true,
+        "description": "截止日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "(Default value = \"cn\")",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "options.get_contracts": {
+    "parameters": {
+      "underlying": {
+        "type": "string",
+        "required": true,
+        "description": "期权标的。可以填写 'M' 代表期货品种的字母；也可填写'M1901' 这种具体合约代码。只支持单一品种或合约代码输入"
+      },
+      "option_type": {
+        "type": "string",
+        "required": false,
+        "description": "'C' 代表认购期权；'P' 代表认沽期权合约。默认返回全部类型"
+      },
+      "maturity": {
+        "type": "string",
+        "required": false,
+        "description": "到期月份。例如 1811 代表期权 18 年 11 月到期（而不是标的期货的到期时间）。默认返回全部到期月份"
+      },
+      "strike": {
+        "type": "number",
+        "required": false,
+        "description": "行权价。查询时向左靠档匹配（例如，当前最高行权价是 1000，则输入大于 1000 的行权价都会向左靠档至 1000）。默认返回全部行权价"
+      },
+      "trading_date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期。默认返回全部数据"
+      }
+    },
+    "returns": {}
+  },
+  "options.get_greeks": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "查询的开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "查询的结束日期，默认为当天"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "查询字段 - 'iv': 从场内期权价格反推对应的标的物收益波动率 - 'delta': 期权价格对于标的物价格变化的一阶敏感度 - 'gamma': 期权价格对于标的物价格变化的二阶敏感度 - 'vega': 期权价格对于隐含波动率的一阶敏感度 - 'theta': 期权价格对于合约待偿期变化的一阶敏感度，为每日历年的 Theta - 'rho': 期权价格对于无风险利率变化的一阶敏感度"
+      },
+      "model": {
+        "type": "string",
+        "required": false,
+        "description": "计算方法,默认为 'implied_forward'。 针对 BS 模型中的标的物远期利率，提供两种计算方法： last - 以国债同期限收益率作为无风险利率，标的物分红定为 0 计算远期利率； implied_forward - 基于期权的风险平价关系（put-call parity），推算市场数据隐含的标的物远期利率",
+        "default": "implied_forward"
+      },
+      "price_type": {
+        "type": "string",
+        "required": false,
+        "description": "计算使用价格，默认为'close' 。 close - 使用期权收盘价计算衍生指标。 settlement - 使用期权结算价计算衍生指标",
+        "default": "close"
+      },
+      "frequency": {
+        "type": "string",
+        "required": false,
+        "description": "数据的频率。 默认为'1d'。 1m - 分钟级别（仅支持股指期货,且 price_type 需为'close'） 1d - 日级别",
+        "default": "1d"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "options.get_indicators": {
+    "parameters": {
+      "underlying_symbols": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "期权标的代码，例 'CU'"
+      },
+      "maturity": {
+        "type": "string",
+        "required": true,
+        "description": "到期月份，例 2503 代表期权 25 年 3 月到期"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，start_date ,end_date 不传参数时默认返回最近三个月的数据"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段 - 'AM_PCR': 成交额 PCR (每日看跌期权成交额 / 每日看涨期权成交额) - 'OI_PCR': 持仓量 PCR (每日看跌期权持仓量 / 每日看涨期权持仓量) - 'VL_PCR': 成交量 PCR (每日看跌期权成交量 / 每日看涨期权成交量) - 'skew': 期权偏度 ((( delta 为 0.25 的认购合约 IV ) - ( delta 为 -0.25 的认沽合约 IV )) / ( delta 为 -0.25 的认沽合约 IV )) - 'iv_025_dela': 0.25delta 隐含波动率 - 'iv_minus_025_dela': -0.25delta 隐含波动率"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "options.get_dominant_month": {
+    "parameters": {
+      "underlying_symbol": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "期权标的代码，例'CU'"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，start_date ,end_date 不传参数时默认返回所有数据"
+      },
+      "rule": {
+        "type": "integer",
+        "required": false,
+        "description": "默认 rule=0，每个月份只能做一次主力月份，不会重复出现。 当 rule=1 时，主力月份的选取只考虑持仓量与成交量条件。",
+        "default": "0"
+      },
+      "rank": {
+        "type": "integer",
+        "required": false,
+        "description": "默认 rank=1。 1-主力月份，2-次主力月份",
+        "default": "1"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "options.get_contract_property": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，start_date ,end_date 不传参数时默认返回所有数据"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_dividend": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可输入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，不传入 start_date ,end_date 则 默认返回全部分红数据"
+      },
+      "adjusted": {
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "default": "False"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe,如果调为 False ,则返回原有的数据结构",
+        "default": "True"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')。cn-中国内地市场，hk-中国香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_split": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可输入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认返回全部"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期 ，默认返回全部"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')。cn-中国内地市场，hk-中国香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_shares": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，不传入 start_date ,end_date 则 默认返回最近三个月的数据"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "默认为所有字段。见下方列表"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe,如果调为 False ,则返回原有的数据结构",
+        "default": "True"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_ex_factor": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可输入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认返回全部"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认返回全部"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_instrument_industry": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "股票合约代码，可输入 order_book_id, order_book_id list"
+      },
+      "source": {
+        "type": "string",
+        "required": false,
+        "description": "分类依据。citics_2019 - 中信新分类（2019 发布）, citics - 中信旧分类（退役中）, gildata -聚源。 默认 source='citics_2019'.",
+        "default": "citics_2019"
+      },
+      "level": {
+        "type": "integer",
+        "required": false,
+        "description": "行业分类级别，共三级，默认返回一级分类。参数 0,1,2,3 一一对应，其中 0 返回三级分类完整情况 当 source='citics_2019' 时，level 可传入'citics_sector' 获取该股票的衍生板块及风格归属",
+        "default": "1"
+      },
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期，默认为当前最新日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_turnover_rate": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可输入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，不传入 start_date ,end_date 则 默认返回最近三个月的数据"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "默认为所有字段。当天换手率 - `today`，过去一周平均换手率 - `week`，过去一个月平均换手率 - `month`，过去一年平均换手率 - `year`，当年平均换手率 - `current_year`"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe。如果调为 False，则返回原有的数据结构",
+        "default": "True"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_margin_stocks": {
+    "parameters": {
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期，默认为今天上一交易日"
+      },
+      "exchange": {
+        "type": "string",
+        "required": false,
+        "description": "交易所，默认为 None，返回所有字段。可选字段包括：'XSHE', 'sz' 代表深交所；'XSHG', 'sh' 代表上交所"
+      },
+      "margin_type": {
+        "type": "string",
+        "required": false,
+        "description": "'stock' 代表融券卖出，'cash'，代表融资买入，默认为'stock'",
+        "default": "stock"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_stock_connect": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string",
+        "required": true,
+        "description": "可输入 order_book_id 或 symbol。另， 1、输入'shanghai_connect'可返回沪股通的全部股票数据。 2、输入'shenzhen_connect'可返回深股通的全部股票数据。 3、输入'all_connect'可返回沪股通、深股通的全部股票数据。"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为'2017-03-17'"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为'2018-03-16'"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "默认为所有字段。见下方列表"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe。如果调为 False，则返回原有的数据结构",
+        "default": "True"
+      }
+    },
+    "returns": {}
+  },
+  "get_pit_financials_ex": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "fields": {
+        "type": "array<string>",
+        "required": true,
+        "description": "需要返回的财务字段。"
+      },
+      "start_quarter": {
+        "type": "string",
+        "required": true,
+        "description": "财报回溯查询的起始报告期，例如'2015q2'代表 2015 年半年报 。"
+      },
+      "end_quarter": {
+        "type": "string",
+        "required": true,
+        "description": "财报回溯查询的截止报告期，例如'2015q4'代表 2015 年年报。"
+      },
+      "date": {
+        "type": "string",
+        "required": false,
+        "description": "查询日期，默认查询日期为当前最新日期"
+      },
+      "statements": {
+        "type": "string",
+        "required": false,
+        "description": "基于查询日期，返回某一个报告期的所有记录或最新一条记录，设置 statements 为 all 时返回所有记录，statements 等于 latest 时返回最新的一条记录，默认为 latest.",
+        "default": "latest"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_factor": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "factor": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "因子名称，可查询 get_all_factor_names() 得到所有有效因子字段"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期。注：如使用开始日期，则必填结束日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期。注：若使用结束日期，则开始日期必填"
+      },
+      "universe": {
+        "type": "string",
+        "required": false,
+        "description": "指定因子计算时的股票域，米筐所有公共因子均在全市场范围计算，此参数保留为 None 即可 .. deprecated:: 2"
+      },
+      "expect_df": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认返回 pandas dataframe。如果调为 False，则返回 原有的数据结构",
+        "default": "True"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "current_performance": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码。"
+      },
+      "info_date": {
+        "type": "string",
+        "required": false,
+        "description": "公告日期。如果不填(info_date 和 quarter 都为空)，则返回当前日期的最新发布的快报。如果填写，则从 info_date 当天或者之前最新的报告开始抓取。"
+      },
+      "quarter": {
+        "type": "string",
+        "required": false,
+        "description": "info_date 参数优先级高于 quarter。如果 info_date 填写了日期，则不查看 quarter 这个字段。 如果 info_date 没有填写而 quarter 有填写，则财报回溯查询的起始报告期，例如'2015q2', '2015q4'分别代表 2015 年半年报以及年报。默认只获取当前报告期财务信息"
+      },
+      "interval": {
+        "type": "string",
+        "required": false,
+        "description": "查询财务数据的间隔。例如，填写'5y'，则代表从报告期开始回溯 5 年，每年为相同报告期数据；'3q'则代表从报告期开始向前回溯 3 个季度。不填写默认抓取一期。",
+        "default": "1q"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "抓取对应有效字段返回。默认返回所有字段。具体快报字段见下方。"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "performance_forecast": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list。"
+      },
+      "info_date": {
+        "type": "string",
+        "required": false,
+        "description": "公告日期。如果不填(info_date 和 end_date 都为空)，则返回当前日期的最新发布的业绩预告。如果填写，则从 info_date 当天或者之前最新的报告开始抓取。注：info_date 优先级高于 end_date"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "对应财务预告期末日期，如'20150331'。"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "抓取对应有效字段返回。默认返回所有字段。具体业绩预告字段见下方"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "consensus.get_comp_indicators": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id 或 order_book_id 列表"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "传入日期，默认为当天"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "传入日期，默认为当天"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "字段名称，默认返回全部字段"
+      },
+      "report_range": {
+        "type": "integer",
+        "required": false,
+        "description": "研报范围 0-不考虑补录入&包括所有报告数据（历史值修复会存在数值变动，需要不变的话传入 3） 1-考虑补录入&包括所有报告数据 2-考虑补录入&仅包括公司报告数据 3-不考虑补录入&包括所有报告数据 4-不考虑补录入&仅包括公司报告数据",
+        "default": "0"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "consensus.get_indicator": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id 或 order_book_id 列表"
+      },
+      "fiscal_year": {
+        "type": "string",
+        "required": true,
+        "description": "查询年份"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "字段名称，默认返回全部字段"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "传入日期，默认为 None，不生效；有值传入返回 date 在这区间的数据"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "传入日期，默认为 None，不生效；有值传入返回 date 在这区间的数据"
+      },
+      "date_rule": {
+        "type": "string",
+        "required": false,
+        "description": "日期截取规则，和 start_date/end_date 一起使用；传入 'RPT_DT'、'create_tm' 或 'rice_create_tm'"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_main_shareholder": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为去年当日。"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为查询当日。"
+      },
+      "is_total": {
+        "type": "boolean",
+        "required": false,
+        "description": "默认为 False, 即基于持有 A 股流通股。若为 True 则基于所有发行出的 A 股。",
+        "default": "False"
+      },
+      "start_rank": {
+        "type": "integer",
+        "required": false,
+        "description": "排名开始值"
+      },
+      "end_rank": {
+        "type": "integer",
+        "required": false,
+        "description": "排名结束值 ,start_rank ,end_rank 不传参时返回全部的十位股东名单"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "市场，默认'cn'为中国内地市场。",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "get_announcement": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，给出单个或多个 order_book_id"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期。注：如使用开始日期，则必填结束日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期。注：若使用结束日期，则开始日期必填"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "可选字段见下方返回，若不指定，则默认获取所有字段"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "is_suspended": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码。传入单只或多支股票的 order_book_id"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为股票上市日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为当前日期，如果股票已经退市，则为退市日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；'hk' - 香港市场",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "is_st_stock": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期，默认为股票上市日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，默认为当前日期，如果股票已经退市，则为退市日期"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn')",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  }
+}
