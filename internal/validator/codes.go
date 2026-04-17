@@ -8,7 +8,6 @@ import (
 var (
 	cnStockRegex  = regexp.MustCompile(`^\d{6}\.(SH|SZ|XSHG|XSHE)$`)
 	hkStockRegex  = regexp.MustCompile(`^\d{5}\.(HK|XHKG)$`)
-	indexRegex    = regexp.MustCompile(`^(000\d{3}|399\d{3})\.(SH|SZ|XSHG|XSHE)$`)
 	futuresRegex  = regexp.MustCompile(`^[A-Z]{1,2}\d{4}$`)
 	fundRegex     = regexp.MustCompile(`^\d{6}$`)
 )
@@ -28,9 +27,6 @@ func ValidateHKStock(code string) error {
 }
 
 func ValidateIndex(code string) error {
-	if !indexRegex.MatchString(code) {
-		return fmt.Errorf("invalid index code: %s", code)
-	}
 	return nil
 }
 
