@@ -137,6 +137,22 @@
           "validator": null,
           "inject_defaults": {},
           "api_supports_fields": true
+        },
+        {
+          "name": "basis",
+          "description": "期货贴水（目前仅支持股指期货）",
+          "api_method": "futures.get_basis",
+          "validator": null,
+          "inject_defaults": {},
+          "api_support_fields": true
+        },
+        {
+          "name": "current-basis",
+          "description": "期货当前贴水（目前仅支持股指期货）",
+          "api_method": "futures.get_current_basis",
+          "validator": null,
+          "inject_defaults": {},
+          "api_support_fields": false
         }
       ]
     },

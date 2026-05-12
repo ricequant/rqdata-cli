@@ -67,14 +67,14 @@
   "fund.all_instruments": {
     "parameters": {
       "date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "该参数表示过滤掉 listed_date 晚于当日的基金，默认为 None，表示获取全部基金信息，不进行过滤。 (Default value = None)"
+        "description": "查询日期，默认为当前日期。过滤掉在该日期尚未上市交易的基金合约"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
         "default": "cn"
       }
     },
@@ -85,12 +85,12 @@
       "order_book_ids": {
         "type": "string | array<string>",
         "required": true,
-        "description": "基金代码，str 或 list of str"
+        "description": "基金代码，例如 '000001'"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
         "default": "cn"
       }
     },
@@ -101,33 +101,33 @@
       "order_book_ids": {
         "type": "string | array<string>",
         "required": true,
-        "description": "基金代码，str 或 list of str"
+        "description": "基金代码"
       },
       "start_date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "开始日期 (Default value = None)"
+        "description": "查询的开始日期"
       },
       "end_date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "结束日期 (Default value = None)"
+        "description": "查询的结束日期，start_date ,end_date 不传参数时默认返回所有数据"
       },
       "fields": {
         "type": "string | array<string>",
         "required": false,
-        "description": "str or list of str，例如：'acc_net_value', 'unit_net_value', 'subscribe_status', 'redeem_status', 'change_rate' (Default value = None)"
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段"
       },
       "expect_df": {
         "type": "boolean",
         "required": false,
-        "description": "返回 MultiIndex DataFrame (Default value = False)",
+        "description": "默认为 False，返回原有的数据结构。若调为True，则返回 pandas dataframe",
         "default": "False"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn') 。",
         "default": "cn"
       }
     },
@@ -138,17 +138,17 @@
       "order_book_ids": {
         "type": "string | array<string>",
         "required": true,
-        "description": "基金代码，str 或 list of str"
+        "description": "基金合约代码"
       },
       "date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "日期，为空则返回所有持仓 (Default value = None)"
+        "description": "查询日期，回溯获取距离指定日期最近的持仓数据。如不指定日期，则获取所有日期的持仓数据"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn') 。",
         "default": "cn"
       }
     },
@@ -159,39 +159,39 @@
       "order_book_ids": {
         "type": "string | array<string>",
         "required": true,
-        "description": "基金代码，str 或 list of str"
+        "description": "基金代码"
       },
       "start_date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "开始日期 (Default value = None)"
+        "description": "开始日期"
       },
       "end_date": {
-        "type": "date",
+        "type": "string",
         "required": false,
-        "description": "结束日期 (Default value = None)"
+        "description": "结束日期"
       },
       "fields": {
         "type": "string | array<string>",
         "required": false,
-        "description": "str or list of str (Default value = None)"
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段"
       },
       "rule": {
-        "type": "integer",
+        "type": "string",
         "required": false,
-        "description": "str, 可选：[\"ricequant\"] (Default value = \"ricequant\")",
+        "description": "指定算法，目前仅支持 'ricequant'",
         "default": "ricequant"
       },
       "indicator_type": {
-        "type": "any",
+        "type": "string",
         "required": false,
-        "description": "str, 可选：[\"value\", \"rank\"] (Default value = \"value\")",
+        "description": "指标类别，取值 'value' 或 'rank'（默认 'value'）",
         "default": "value"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn')",
         "default": "cn"
       }
     },
@@ -207,13 +207,13 @@
       "expect_df": {
         "type": "boolean",
         "required": false,
-        "description": "返回 MultiIndex DataFrame (Default value = True)",
+        "description": "默认为True，返回 pandas dataframe。若调为 False，则返回原有的数据结构",
         "default": "True"
       },
       "market": {
         "type": "string",
         "required": false,
-        "description": "(Default value = \"cn\")",
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
         "default": "cn"
       }
     },
@@ -224,7 +224,7 @@
       "order_book_ids": {
         "type": "string | array<string>",
         "required": true,
-        "description": "基金代码，str 或 list of str"
+        "description": "基金代码"
       },
       "market": {
         "type": "string",
@@ -426,6 +426,71 @@
         "type": "string",
         "required": false,
         "description": "开始、结束时间段。默认返回当天所有数据。"
+      }
+    },
+    "returns": {}
+  },
+  "futures.get_basis": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "start_date": {
+        "type": "string",
+        "required": false,
+        "description": "开始日期"
+      },
+      "end_date": {
+        "type": "string",
+        "required": false,
+        "description": "结束日期，start_date ,end_date 不传参数时默认返回最近三个月的数据"
+      },
+      "fields": {
+        "type": "string | array<string>",
+        "required": false,
+        "description": "查询字段，可选字段见下方返回，默认返回所有字段"
+      },
+      "frequency": {
+        "type": "string",
+        "required": false,
+        "description": "频率，支持/日/分钟/tick 级别的历史数据，默认为'1d'。 1d - 日线 1m - 分钟线 tick",
+        "default": "1d"
+      },
+      "dividend_adjusted": {
+        "type": "boolean",
+        "required": false,
+        "description": "是否进行分红调整，默认为 False",
+        "default": "False"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "市场, 默认'cn'",
+        "default": "cn"
+      }
+    },
+    "returns": {}
+  },
+  "futures.get_current_basis": {
+    "parameters": {
+      "order_book_ids": {
+        "type": "string | array<string>",
+        "required": true,
+        "description": "合约代码，可传入 order_book_id, order_book_id list"
+      },
+      "dividend_adjusted": {
+        "type": "boolean",
+        "required": false,
+        "description": "是否进行分红调整，默认为 False",
+        "default": "False"
+      },
+      "market": {
+        "type": "string",
+        "required": false,
+        "description": "默认是中国内地市场('cn') 。可选'cn' - 中国内地市场；",
+        "default": "cn"
       }
     },
     "returns": {}
