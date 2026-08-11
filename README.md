@@ -26,7 +26,7 @@ RQData CLI 使用 Go 实现，提供单文件可执行程序，并通过统一�
 - 支持 `--schema` 查看单命令 schema，`rqdata schema list` 查看命令清单
 - 支持 `--fields` 限制输出字段
 - 自动处理认证、token 缓存和 token 失效重试
-- 同时提供 Go 源码构建和 npm 平台包分发
+- 同时提供 Go 源码构建、npm 平台包分发和 Python wheel 分发
 
 ## 安装
 
@@ -42,6 +42,20 @@ rqdata --help
 
 - npm 包会通过 `bin/rqdata.js` 自动选择当前平台对应的二进制包
 - 使用 npm 需要 Node.js 18+
+
+### 通过 pip 安装
+
+```bash
+pip install rqdata-cli
+rqdata --version
+rqdata --help
+```
+
+说明：
+
+- PyPI 分发采用平台相关 wheel，每个 wheel 内置当前平台对应的 Go 二进制
+- 当前支持 Linux x64、macOS x64、macOS arm64 和 Windows x64
+- 使用 pip 需要 Python 3.8+
 
 ### 从源码构建
 
@@ -63,6 +77,28 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 ```
 
 更多构建方式见 [BUILD_GO.md](BUILD_GO.md)。
+
+### 构建 Python wheel
+
+安装构建依赖：
+
+```bash
+python3 -m pip install build
+```
+
+构建当前平台 wheel：
+
+```bash
+python3 scripts/python/build-wheels.py --clean
+```
+
+构建所有平台 wheel：
+
+```bash
+python3 scripts/python/build-wheels.py --target all --clean
+```
+
+构建产物默认输出到 `wheelhouse/`。
 
 ## 认证
 

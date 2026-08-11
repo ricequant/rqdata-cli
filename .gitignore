@@ -20,6 +20,11 @@ dist/
 # Python
 __pycache__/
 *.pyc
+.venv/
+build/
+*.egg-info/
+wheelhouse/
+*.whl
 
 # Generated files
 node_modules/

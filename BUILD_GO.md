@@ -55,6 +55,30 @@ npm run pack:all
 npm run publish:all
 ```
 
+## Python wheel 构建
+
+Python wheel 采用“单一项目名 + 多平台 wheel”模式，wheel 内包含对应平台的 Go 二进制。
+
+安装构建前端：
+
+```bash
+python3 -m pip install build
+```
+
+构建当前平台 wheel：
+
+```bash
+python3 scripts/python/build-wheels.py --clean
+```
+
+构建全部支持的平台 wheel：
+
+```bash
+python3 scripts/python/build-wheels.py --target all --clean
+```
+
+构建产物默认写入 `wheelhouse/`。如果 `dist/` 中缺少目标二进制，构建过程会自动调用 `go build` 生成。
+
 ## 验证单文件
 ```bash
 # Linux/macOS

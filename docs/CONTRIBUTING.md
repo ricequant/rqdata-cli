@@ -36,6 +36,13 @@ npm run link:platform
 node bin/rqdata.js --version
 ```
 
+如果需要验证 Python wheel 分发链路：
+
+```bash
+python3 -m pip install build
+python3 scripts/python/build-wheels.py --clean
+```
+
 ## 提交流程
 
 1. Fork 仓库并创建分支
@@ -87,6 +94,22 @@ npm run publish:all
 ```bash
 npm version prerelease --preid rc
 npm run publish:next
+```
+
+Python wheel 发布采用“单一项目名 + 多平台 wheel”模式：
+
+- `rqdata-cli`
+
+本地打包：
+
+```bash
+python3 scripts/python/build-wheels.py --target all --clean
+```
+
+发布：
+
+```bash
+python3 -m twine upload wheelhouse/*.whl
 ```
 
 ## 获取帮助
