@@ -31,9 +31,6 @@ func ValidateIndex(code string) error {
 }
 
 func ValidateFutures(code string) error {
-	if !futuresRegex.MatchString(code) {
-		return fmt.Errorf("invalid futures code: %s", code)
-	}
 	return nil
 }
 
