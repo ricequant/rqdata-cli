@@ -11,9 +11,13 @@ echo "Building rqdata CLI v${VERSION} for all platforms..."
 mkdir -p ${OUTPUT_DIR}
 mkdir -p "${GOCACHE_DIR}"
 
-# Linux
-echo "Building for Linux..."
+# Linux x64
+echo "Building for Linux x64..."
 GOCACHE="${GOCACHE_DIR}" CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="${LDFLAGS}" -o ${OUTPUT_DIR}/rqdata-linux-amd64 main.go
+
+# Linux arm64
+echo "Building for Linux arm64..."
+GOCACHE="${GOCACHE_DIR}" CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath -ldflags="${LDFLAGS}" -o ${OUTPUT_DIR}/rqdata-linux-arm64 main.go
 
 # macOS Intel
 echo "Building for macOS (Intel)..."

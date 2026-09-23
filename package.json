@@ -1,6 +1,6 @@
 {
   "name": "@ricequant2026/rqdata-cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "RQData CLI for AI agents and quantitative research",
   "license": "MIT",
   "bin": {
@@ -14,10 +14,11 @@
     "CHANGELOG.md"
   ],
   "optionalDependencies": {
-    "@ricequant2026/rqdata-cli-linux-x64": "1.0.4",
-    "@ricequant2026/rqdata-cli-darwin-x64": "1.0.4",
-    "@ricequant2026/rqdata-cli-darwin-arm64": "1.0.4",
-    "@ricequant2026/rqdata-cli-win32-x64": "1.0.4"
+    "@ricequant2026/rqdata-cli-linux-x64": "1.0.5",
+    "@ricequant2026/rqdata-cli-linux-arm64": "1.0.5",
+    "@ricequant2026/rqdata-cli-darwin-x64": "1.0.5",
+    "@ricequant2026/rqdata-cli-darwin-arm64": "1.0.5",
+    "@ricequant2026/rqdata-cli-win32-x64": "1.0.5"
   },
   "scripts": {
     "build:npm": "node scripts/npm/build-packages.js",

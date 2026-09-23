@@ -18,6 +18,17 @@ const PLATFORM_TARGETS = [
     binName: 'rqdata'
   },
   {
+    key: 'linux-arm64',
+    goos: 'linux',
+    goarch: 'arm64',
+    os: 'linux',
+    cpu: 'arm64',
+    packageName: `${NPM_SCOPE}/rqdata-cli-linux-arm64`,
+    packageDir: path.join(PACKAGES_DIR, 'rqdata-cli-linux-arm64'),
+    output: 'rqdata-linux-arm64',
+    binName: 'rqdata'
+  },
+  {
     key: 'darwin-x64',
     goos: 'darwin',
     goarch: 'amd64',

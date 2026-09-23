@@ -13,6 +13,11 @@ PLATFORM_TARGETS = {
         "goarch": "amd64",
         "wheel_plat_name": "manylinux2014_x86_64",
     },
+    "linux-arm64": {
+        "goos": "linux",
+        "goarch": "arm64",
+        "wheel_plat_name": "manylinux2014_aarch64",
+    },
     "darwin-x64": {
         "goos": "darwin",
         "goarch": "amd64",
@@ -37,6 +42,8 @@ def detect_current_target():
     mapping = {
         ("linux", "x86_64"): "linux-x64",
         ("linux", "amd64"): "linux-x64",
+        ("linux", "aarch64"): "linux-arm64",
+        ("linux", "arm64"): "linux-arm64",
         ("darwin", "x86_64"): "darwin-x64",
         ("darwin", "amd64"): "darwin-x64",
         ("darwin", "arm64"): "darwin-arm64",

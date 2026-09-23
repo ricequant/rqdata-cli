@@ -73,6 +73,7 @@ npm 发布采用“主包 + 平台包”模式：
 
 - `@ricequant2026/rqdata-cli`
 - `@ricequant2026/rqdata-cli-linux-x64`
+- `@ricequant2026/rqdata-cli-linux-arm64`
 - `@ricequant2026/rqdata-cli-darwin-x64`
 - `@ricequant2026/rqdata-cli-darwin-arm64`
 - `@ricequant2026/rqdata-cli-win32-x64`

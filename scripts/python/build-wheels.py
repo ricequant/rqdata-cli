@@ -23,21 +23,22 @@ def has_module(name):
     return importlib.util.find_spec(name) is not None
 
 
-def build_wheel(target_key, out_dir):
+def build_wheel(target_key, out_dir, isolation=False):
     env = os.environ.copy()
     env["RQDATA_PY_TARGET"] = target_key
+    shutil.rmtree(ROOT / "build", ignore_errors=True)
     if has_module("build.__main__"):
-        run(
-            [
-                sys.executable,
-                "-m",
-                "build.__main__",
-                "--wheel",
-                "--outdir",
-                str(out_dir),
-            ],
-            env=env,
-        )
+        command = [
+            sys.executable,
+            "-m",
+            "build.__main__",
+            "--wheel",
+            "--outdir",
+            str(out_dir),
+        ]
+        if not isolation:
+            command.append("--no-isolation")
+        run(command, env=env)
         return
 
     if has_module("build"):
@@ -83,6 +84,11 @@ def main():
         action="store_true",
         help="Delete the output directory before building.",
     )
+    parser.add_argument(
+        "--isolated",
+        action="store_true",
+        help="Use an isolated build environment. Requires network access to install build dependencies.",
+    )
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir).resolve()
@@ -93,7 +99,7 @@ def main():
     targets = sorted(PLATFORM_TARGETS) if args.target == "all" else [args.target]
     for target in targets:
         print(f"Building wheel for {target}")
-        build_wheel(target, out_dir)
+        build_wheel(target, out_dir, isolation=args.isolated)
 
     print(f"Wheel build complete: {out_dir}")
 

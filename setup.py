@@ -33,6 +33,13 @@ PLATFORM_TARGETS = {
         "dist_name": "rqdata-linux-amd64",
         "wheel_plat_name": "manylinux2014_x86_64",
     },
+    "linux-arm64": {
+        "goos": "linux",
+        "goarch": "arm64",
+        "binary_name": "rqdata",
+        "dist_name": "rqdata-linux-arm64",
+        "wheel_plat_name": "manylinux2014_aarch64",
+    },
     "darwin-x64": {
         "goos": "darwin",
         "goarch": "amd64",
@@ -59,6 +66,8 @@ PLATFORM_TARGETS = {
 CURRENT_TARGETS = {
     ("linux", "x86_64"): "linux-x64",
     ("linux", "amd64"): "linux-x64",
+    ("linux", "aarch64"): "linux-arm64",
+    ("linux", "arm64"): "linux-arm64",
     ("darwin", "x86_64"): "darwin-x64",
     ("darwin", "amd64"): "darwin-x64",
     ("darwin", "arm64"): "darwin-arm64",
@@ -139,6 +148,7 @@ class build_py(_build_py):
         binary_source = ensure_binary(version, target_key, target)
 
         destination_dir = Path(self.build_lib) / IMPORT_NAME / "bin"
+        shutil.rmtree(destination_dir, ignore_errors=True)
         destination_dir.mkdir(parents=True, exist_ok=True)
         destination = destination_dir / target["binary_name"]
         shutil.copy2(binary_source, destination)

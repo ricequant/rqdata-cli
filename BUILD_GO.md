@@ -26,8 +26,11 @@ VERSION=1.0.0 ./build.sh
 
 ### 跨平台构建（静态链接）
 ```bash
-# Linux
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" -o rqdata-linux main.go
+# Linux x64
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" -o rqdata-linux-amd64 main.go
+
+# Linux arm64
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" -o rqdata-linux-arm64 main.go
 
 # macOS
 CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" -o rqdata-macos main.go
@@ -47,7 +50,7 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -trimpath -ldflags="-s -w -X gi
 npm run pack:all
 ```
 
-该命令会构建 Linux/macOS/Windows 预编译二进制，并生成 4 个平台包和 1 个主包的 npm tarball。
+该命令会构建 Linux x64、Linux arm64、macOS 和 Windows 预编译二进制，并生成 5 个平台包和 1 个主包的 npm tarball。
 
 正式发布使用：
 

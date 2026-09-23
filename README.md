@@ -54,7 +54,7 @@ rqdata --help
 说明：
 
 - PyPI 分发采用平台相关 wheel，每个 wheel 内置当前平台对应的 Go 二进制
-- 当前支持 Linux x64、macOS x64、macOS arm64 和 Windows x64
+- 当前支持 Linux x64、Linux arm64、macOS x64、macOS arm64 和 Windows x64
 - 使用 pip 需要 Python 3.8+
 
 ### 从源码构建
@@ -73,7 +73,11 @@ VERSION=1.0.0 ./build.sh
 ```bash
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" \
-  -o rqdata-linux main.go
+  -o rqdata-linux-amd64 main.go
+
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+  go build -trimpath -ldflags="-s -w -X github.com/ricequant/rqdata-cli/cmd.Version=1.0.0" \
+  -o rqdata-linux-arm64 main.go
 ```
 
 更多构建方式见 [BUILD_GO.md](BUILD_GO.md)。
