@@ -12,7 +12,7 @@ RQData CLI 使用 Go 实现，提供单文件可执行程序，并通过统一�
 
 - [快速上手](docs/QUICKSTART.md)
 - [命令参考](docs/rqdata_cli_commands.md)
-- [Go 构建说明](BUILD_GO.md)
+- [构建说明（Go / npm / Python wheel）](BUILD_GO.md)
 - [迁移说明](MIGRATION.md)
 - [更新日志](CHANGELOG.md)
 - [测试说明](tests/README.md)
@@ -84,25 +84,25 @@ CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
 
 ### 构建 Python wheel
 
-安装构建依赖：
+安装构建依赖（需要 Go 1.21+，用于编译 wheel 内置的二进制）：
 
 ```bash
 python3 -m pip install build
 ```
 
-构建当前平台 wheel：
+构建指定平台 wheel：
 
 ```bash
-python3 scripts/python/build-wheels.py --clean
+python3 scripts/python/build-wheels.py --target linux-arm64
 ```
 
-构建所有平台 wheel：
+构建全部 5 个平台 wheel：
 
 ```bash
-python3 scripts/python/build-wheels.py --target all --clean
+python3 scripts/python/build-wheels.py --target all
 ```
 
-构建产物默认输出到 `wheelhouse/`。
+构建产物默认输出到 `wheelhouse/`。wheel 平台标签由 `setup.py` 显式指定，可在任意平台交叉构建；支持的 `--target` 取值、参数含义、验证与发布流程见 [BUILD_GO.md](BUILD_GO.md#python-wheel-构建)。
 
 ## 认证
 

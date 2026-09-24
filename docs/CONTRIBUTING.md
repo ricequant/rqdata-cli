@@ -40,8 +40,10 @@ node bin/rqdata.js --version
 
 ```bash
 python3 -m pip install build
-python3 scripts/python/build-wheels.py --clean
+python3 scripts/python/build-wheels.py --target linux-arm64
 ```
+
+`--target` 用于指定平台（`linux-x64`、`linux-arm64`、`darwin-x64`、`darwin-arm64`、`win32-x64`），省略时构建宿主平台。wheel 标签由 `setup.py` 显式指定，可在任意平台交叉构建；完整的参数说明、验证与发布流程见 [BUILD_GO.md](../BUILD_GO.md#python-wheel-构建)。
 
 ## 提交流程
 
@@ -107,11 +109,15 @@ Python wheel 发布采用“单一项目名 + 多平台 wheel”模式：
 python3 scripts/python/build-wheels.py --target all --clean
 ```
 
+`--clean` 会先删除整个 `wheelhouse/` 目录，因此 `--target all` 时应始终配合使用；只构建单个平台时省略该参数，避免删掉其他平台的产物。
+
 发布：
 
 ```bash
 python3 -m twine upload wheelhouse/*.whl
 ```
+
+发布前确认 `wheelhouse/` 中 5 个平台的 wheel 版本号一致且均已构建，版本号取自 `package.json`。
 
 ## 获取帮助
 
